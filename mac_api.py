@@ -3,6 +3,7 @@ import argparse
 from argparse import RawDescriptionHelpFormatter
 import json
 
+# Queries API choice for mac address
 def lookup(mac, api):
     url = api_list[int(api) - 1]
     r = requests.get(url % mac)
@@ -25,11 +26,13 @@ api_list = [macvendorsco, macvendorlookup, macvendors]
 
 msg = 'Query a choice of three APIs for Mac Address vendor lookup'
 
+# Sets up argument parser and its arguments
 parser = argparse.ArgumentParser(description = msg, formatter_class = argparse.RawTextHelpFormatter)
 parser.add_argument("-m", "--Mac", help = 'Mac Address')
 parser.add_argument("-a", "--Api", help = 'Api Choice...\n1. macvendors.co\n2. macvendorlookup.com\n3. macvendors.com')
 args = parser.parse_args()
 
+# Argument Error handeling
 if args.Mac:
     mac_address = args.Mac
     print('Mac Address: % s' % args.Mac)
@@ -47,7 +50,7 @@ if args.Api:
 else:
     print('Please provide an API choice')
 
-
+# Run lookup if mac and api choice is provided
 if args.Mac and args.Api:
     print('Searching...\n')
     lookup(args.Mac, args.Api)
